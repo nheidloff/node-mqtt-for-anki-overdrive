@@ -27,10 +27,14 @@ var readCharacteristic;
 var writeCharacteristic;
 var car;
 var lane;
+var deviceId;
+var accel = 12500;
 
-config.read(process.argv[2], function(carId, startlane, mqttClient) {
+config.read(process.argv[2], function(carId, startlane, mqttClient, deviceId) {
 
-  if (!carId) {
+    this.deviceId = deviceId;
+    console.log('Device: ' + deviceId);
+    if (!carId) {
     console.log('Define carid in a properties file and pass in the name of the file as argv');
     process.exit(0);
   }
@@ -48,7 +52,10 @@ config.read(process.argv[2], function(carId, startlane, mqttClient) {
       var advertisement = peripheral.advertisement;
       var serviceUuids = JSON.stringify(peripheral.advertisement.serviceUuids);
       if(serviceUuids.indexOf("be15beef6186407e83810bd89c4d8df4") > -1) {
-        console.log('Car discovered. ID: ' + peripheral.id); 
+        console.log('Car discovered. ID: ' + peripheral.id);
+//          if (mqttClient) {
+//              mqttClient.publish(subscriptionnamePrefix + deviceId + '/connected', '' + peripheral.id, function () {});
+//          }
         car = peripheral;
         setUp(car);
       }
@@ -58,7 +65,7 @@ config.read(process.argv[2], function(carId, startlane, mqttClient) {
   function setUp(peripheral) {
     peripheral.on('disconnect', function() {
       console.log('Car has been disconnected');
-      process.exit(0);
+        process.exit(0);
     });
 
     peripheral.connect(function(error) {
@@ -124,50 +131,41 @@ config.read(process.argv[2], function(carId, startlane, mqttClient) {
   });
 
   mqttClient.on('message', function(topic, message, packet) {
-    var msg = JSON.parse(message.toString());
-    //console.log('Message received from Bluemix');
-    
-    if (msg.d.action == '#s') {
-      var cmd = "s";
-      if (msg.d.speed) {
-        cmd = cmd + " " + msg.d.speed;
-        if (msg.d.accel) {
-          cmd = cmd + " " + msg.d.accel;
-        }
-      }
-      invokeCommand(cmd);
-    }
-    else if (msg.d.action == '#c') {
-      var cmd = "c";
-      if (msg.d.offset) {
-        cmd = cmd + " " + msg.d.offset;
-      }
-      invokeCommand(cmd);
-    }
-    else if (msg.d.action == '#q') {
-      var cmd = "q";
-      invokeCommand(cmd);
-    }
-    else if (msg.d.action == '#ping') {
-      var cmd = "ping";
-      invokeCommand(cmd);
-    }
-    else if (msg.d.action == '#ver') {
-      var cmd = "ver";
-      invokeCommand(cmd);
-    }
-    else if (msg.d.action == '#bat') {
-      var cmd = "bat";
-      invokeCommand(cmd);
-    }
-    else if (msg.d.action == '#l') {
-      var cmd = "l";
-      invokeCommand(cmd);
-    }
-    else if (msg.d.action == '#lp') {
-      var cmd = "lp";
-      invokeCommand(cmd);
-    }
+      console.log("topic: " + topic);
+      var actions = topic.split('/');
+          if (actions.length == 4) {
+              var action = actions[3];
+              console.log("Action: " + action);
+              if (action == 'speed') {
+                  invokeCommand("s " + message + " " + accel);
+              }
+              else if (action == 'changelane') {
+                  invokeCommand("c " + message);
+              }
+              else if (action == 'quit') {
+                  invokeCommand("q");
+              }
+              else if (action == 'ping') {
+                  invokeCommand("ping");
+              }
+              else if (action == 'version') {
+                  invokeCommand("ver");
+              }
+              else if (action == 'battery') {
+                  invokeCommand("bat");
+              }
+              else if (action == 'light') {
+                  //    invokeCommand("l");
+                  console.log("error in light command")
+              }
+              else if (action == 'lightpattern') {
+                  //    invokeCommand("lp");
+                  console.log("error in lightpattern command")
+              }
+              else {
+                  // console.log("something else happened");
+              }
+          }
   });
 });
 
@@ -186,6 +184,7 @@ function init(startlane) {
         if (startlane == '2') initialOffset = 23.0;
         if (startlane == '3') initialOffset = -23.0;
         if (startlane == '4') initialOffset = -68.0;
+          if (startlane == '5') initialOffset = 0.0;
       }
 
       initMessage = new Buffer(6);
