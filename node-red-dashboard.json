@@ -1,0 +1,923 @@
+[
+  {
+    "id": "624353b5.dcfa8c",
+    "type": "tab",
+    "label": "Flow 2",
+    "disabled": false
+  },
+  {
+    "id": "49150a99.07f5a4",
+    "type": "mqtt in",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "topic": "#",
+    "qos": "2",
+    "broker": "ccfd1c26.413b",
+    "x": 109.53907012939453,
+    "y": 376.21099376678467,
+    "wires": [
+      [
+        "2e734c9a.a73574",
+        "38a35894.d52e48",
+        "c730def5.6faa4",
+        "a58060a3.6b0eb"
+      ]
+    ]
+  },
+  {
+    "id": "2e734c9a.a73574",
+    "type": "switch",
+    "z": "624353b5.dcfa8c",
+    "name": "Battery",
+    "property": "topic",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "hackathon2-ecxio/car/red/batterypercentage",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "hackathon2-ecxio/car/blue/batterypercentage",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "outputs": 2,
+    "x": 339.53125,
+    "y": 198.6484375,
+    "wires": [
+      [
+        "bd08718e.d6677",
+        "cb8ecf5b.dde58",
+        "304efbf.beb2204"
+      ],
+      [
+        "d687bc68.428af",
+        "af939777.ab75d8",
+        "2c8e6b89.779074"
+      ]
+    ]
+  },
+  {
+    "id": "bd08718e.d6677",
+    "type": "ui_gauge",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "group": "27698791.29b258",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "gtype": "gage",
+    "title": "Battery",
+    "label": "units",
+    "format": "{{value}}",
+    "min": "0",
+    "max": "100",
+    "colors": [
+      "#b50300",
+      "#e6e600",
+      "#12ca05"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "x": 586.5391044616699,
+    "y": 40.929697036743164,
+    "wires": []
+  },
+  {
+    "id": "d687bc68.428af",
+    "type": "ui_gauge",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "group": "efef1321.3b229",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "gtype": "gage",
+    "title": "Battery",
+    "label": "units",
+    "format": "{{value}}",
+    "min": "0",
+    "max": "100",
+    "colors": [
+      "#b51d12",
+      "#e6e600",
+      "#03ca1e"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "x": 590.539134979248,
+    "y": 171.93754386901855,
+    "wires": []
+  },
+  {
+    "id": "cb8ecf5b.dde58",
+    "type": "ui_chart",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "group": "27698791.29b258",
+    "order": 2,
+    "width": 0,
+    "height": 0,
+    "label": "Battery",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "",
+    "dot": false,
+    "ymin": "0",
+    "ymax": "100",
+    "removeOlder": "10",
+    "removeOlderPoints": "",
+    "removeOlderUnit": "60",
+    "cutout": 0,
+    "useOneColor": false,
+    "colors": [
+      "#1f77b4",
+      "#aec7e8",
+      "#ff7f0e",
+      "#2ca02c",
+      "#98df8a",
+      "#d62728",
+      "#ff9896",
+      "#9467bd",
+      "#c5b0d5"
+    ],
+    "useOldStyle": false,
+    "x": 584.5234794616699,
+    "y": 82.8828239440918,
+    "wires": [
+      [],
+      []
+    ]
+  },
+  {
+    "id": "af939777.ab75d8",
+    "type": "ui_chart",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "group": "efef1321.3b229",
+    "order": 2,
+    "width": 0,
+    "height": 0,
+    "label": "Battery",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "",
+    "dot": false,
+    "ymin": "0",
+    "ymax": "100",
+    "removeOlder": "10",
+    "removeOlderPoints": "",
+    "removeOlderUnit": "60",
+    "cutout": 0,
+    "useOneColor": false,
+    "colors": [
+      "#1f77b4",
+      "#aec7e8",
+      "#ff7f0e",
+      "#2ca02c",
+      "#98df8a",
+      "#d62728",
+      "#ff9896",
+      "#9467bd",
+      "#c5b0d5"
+    ],
+    "useOldStyle": false,
+    "x": 589.5391044616699,
+    "y": 219.86720275878906,
+    "wires": [
+      [],
+      []
+    ]
+  },
+  {
+    "id": "38a35894.d52e48",
+    "type": "switch",
+    "z": "624353b5.dcfa8c",
+    "name": "Speed",
+    "property": "topic",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "hackathon2-ecxio/car/red/speed",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "hackathon2-ecxio/car/blue/speed",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "outputs": 2,
+    "x": 344.53125,
+    "y": 335.640625,
+    "wires": [
+      [
+        "51c2c782.ee4ee8",
+        "2884cd5.3cd2f32",
+        "d6a4f087.5a301"
+      ],
+      [
+        "3af6106c.333c4",
+        "99a7b4f5.2b9b28",
+        "203b2aac.1ee0c6"
+      ]
+    ]
+  },
+  {
+    "id": "51c2c782.ee4ee8",
+    "type": "ui_gauge",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "group": "4a0e04e4.2c64dc",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "gtype": "gage",
+    "title": "Speed",
+    "label": "units",
+    "format": "{{value}}",
+    "min": 0,
+    "max": "1500",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "x": 563.53125,
+    "y": 339.9296875,
+    "wires": []
+  },
+  {
+    "id": "3af6106c.333c4",
+    "type": "ui_gauge",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "group": "2ba88596.a527fa",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "gtype": "gage",
+    "title": "Speed",
+    "label": "units",
+    "format": "{{value}}",
+    "min": 0,
+    "max": "1500",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "x": 560.5391044616699,
+    "y": 448.9375419616699,
+    "wires": []
+  },
+  {
+    "id": "2884cd5.3cd2f32",
+    "type": "ui_chart",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "group": "4a0e04e4.2c64dc",
+    "order": 2,
+    "width": 0,
+    "height": 0,
+    "label": "Speed",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "",
+    "dot": false,
+    "ymin": "0",
+    "ymax": "1500",
+    "removeOlder": "10",
+    "removeOlderPoints": "",
+    "removeOlderUnit": "60",
+    "cutout": 0,
+    "useOneColor": false,
+    "colors": [
+      "#1f77b4",
+      "#aec7e8",
+      "#ff7f0e",
+      "#2ca02c",
+      "#98df8a",
+      "#d62728",
+      "#ff9896",
+      "#9467bd",
+      "#c5b0d5"
+    ],
+    "useOldStyle": false,
+    "x": 563.53125,
+    "y": 376.8671875,
+    "wires": [
+      [],
+      []
+    ]
+  },
+  {
+    "id": "99a7b4f5.2b9b28",
+    "type": "ui_chart",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "group": "2ba88596.a527fa",
+    "order": 2,
+    "width": 0,
+    "height": 0,
+    "label": "Speed",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "",
+    "dot": false,
+    "ymin": "0",
+    "ymax": "1500",
+    "removeOlder": "10",
+    "removeOlderPoints": "",
+    "removeOlderUnit": "60",
+    "cutout": 0,
+    "useOneColor": false,
+    "colors": [
+      "#1f77b4",
+      "#aec7e8",
+      "#ff7f0e",
+      "#2ca02c",
+      "#98df8a",
+      "#d62728",
+      "#ff9896",
+      "#9467bd",
+      "#c5b0d5"
+    ],
+    "useOldStyle": false,
+    "x": 560.5312919616699,
+    "y": 483.8828544616699,
+    "wires": [
+      [],
+      []
+    ]
+  },
+  {
+    "id": "d6a4f087.5a301",
+    "type": "ui_slider",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "label": "Speed",
+    "group": "4a0e04e4.2c64dc",
+    "order": 3,
+    "width": 0,
+    "height": 0,
+    "passthru": false,
+    "topic": "",
+    "min": 0,
+    "max": "1500",
+    "step": 1,
+    "x": 562.5235290527344,
+    "y": 411.3750476837158,
+    "wires": [
+      [
+        "7bf58278.90db1c"
+      ]
+    ]
+  },
+  {
+    "id": "7bf58278.90db1c",
+    "type": "mqtt out",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "topic": "hackathon2-ecxio/car/red/speed",
+    "qos": "",
+    "retain": "",
+    "broker": "ccfd1c26.413b",
+    "x": 928.5236053466797,
+    "y": 413.10950756073,
+    "wires": []
+  },
+  {
+    "id": "fc07b32.b1b785",
+    "type": "mqtt out",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "topic": "hackathon2-ecxio/car/blue/speed",
+    "qos": "",
+    "retain": "",
+    "broker": "ccfd1c26.413b",
+    "x": 942.5314636230469,
+    "y": 489.12516593933105,
+    "wires": []
+  },
+  {
+    "id": "203b2aac.1ee0c6",
+    "type": "ui_slider",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "label": "Speed",
+    "group": "2ba88596.a527fa",
+    "order": 3,
+    "width": 0,
+    "height": 0,
+    "passthru": false,
+    "topic": "",
+    "min": 0,
+    "max": "1500",
+    "step": 1,
+    "x": 562.539134979248,
+    "y": 520.3752269744873,
+    "wires": [
+      [
+        "fc07b32.b1b785"
+      ]
+    ]
+  },
+  {
+    "id": "94ce4af6.ea6bb8",
+    "type": "ui_slider",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "label": "Position",
+    "group": "4a0e04e4.2c64dc",
+    "order": 4,
+    "width": 0,
+    "height": 0,
+    "passthru": false,
+    "topic": "",
+    "min": "-80",
+    "max": "80",
+    "step": 1,
+    "x": 582.53125,
+    "y": 649.375,
+    "wires": [
+      [
+        "6cb81f29.82c2a"
+      ]
+    ]
+  },
+  {
+    "id": "c6cfeba2.4c01b8",
+    "type": "ui_slider",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "label": "Position",
+    "group": "2ba88596.a527fa",
+    "order": 4,
+    "width": 0,
+    "height": 0,
+    "passthru": false,
+    "topic": "",
+    "min": "-80",
+    "max": "80",
+    "step": 1,
+    "x": 577.5390625,
+    "y": 722.3828125,
+    "wires": [
+      [
+        "547330ec.25684"
+      ]
+    ]
+  },
+  {
+    "id": "c730def5.6faa4",
+    "type": "switch",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "property": "topic",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "hackathon2-ecxio/car/red/telemetrie/offset",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "hackathon2-ecxio/car/blue/telemetrie/offset",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "outputs": 2,
+    "x": 359.53126525878906,
+    "y": 688.6562995910645,
+    "wires": [
+      [
+        "94ce4af6.ea6bb8"
+      ],
+      [
+        "c6cfeba2.4c01b8"
+      ]
+    ]
+  },
+  {
+    "id": "6cb81f29.82c2a",
+    "type": "mqtt out",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "topic": "hackathon2-ecxio/car/red/changelane",
+    "qos": "",
+    "retain": "",
+    "broker": "ccfd1c26.413b",
+    "x": 939.5312995910645,
+    "y": 649.1172351837158,
+    "wires": []
+  },
+  {
+    "id": "547330ec.25684",
+    "type": "mqtt out",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "topic": "hackathon2-ecxio/car/blue/changelane",
+    "qos": "",
+    "retain": "",
+    "broker": "ccfd1c26.413b",
+    "x": 931.531364440918,
+    "y": 728.1172676086426,
+    "wires": []
+  },
+  {
+    "id": "f6b6b660.9f37a8",
+    "type": "watson-text-to-speech",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "lang": "de-DE",
+    "langhidden": "de-DE",
+    "langcustom": "NoCustomisationSetting",
+    "langcustomhidden": "",
+    "voice": "de-DE_BirgitVoice",
+    "voicehidden": "",
+    "format": "audio/wav",
+    "password": "",
+    "payload-response": true,
+    "default-endpoint": true,
+    "service-endpoint": "https://stream.watsonplatform.net/text-to-speech/api",
+    "x": 1122.5391540527344,
+    "y": 108.7187671661377,
+    "wires": [
+      [
+        "19bae8e5.999947"
+      ]
+    ]
+  },
+  {
+    "id": "19bae8e5.999947",
+    "type": "ui_audio",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "group": "27698791.29b258",
+    "voice": "",
+    "always": true,
+    "x": 1303.5390930175781,
+    "y": 107.8125114440918,
+    "wires": []
+  },
+  {
+    "id": "304efbf.beb2204",
+    "type": "switch",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "property": "payload",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "lt",
+        "v": "15",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "outputs": 1,
+    "x": 578.5313339233398,
+    "y": 123.15625190734863,
+    "wires": [
+      [
+        "e526f375.86409"
+      ]
+    ]
+  },
+  {
+    "id": "2c8e6b89.779074",
+    "type": "switch",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "property": "payload",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "lt",
+        "v": "15",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "outputs": 1,
+    "x": 582.5234909057617,
+    "y": 261.1484489440918,
+    "wires": [
+      [
+        "b085ae14.2bf1e"
+      ]
+    ]
+  },
+  {
+    "id": "e526f375.86409",
+    "type": "template",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "field": "payload",
+    "fieldType": "msg",
+    "format": "handlebars",
+    "syntax": "mustache",
+    "template": "Achtung, Batterie rotes Auto unter 15 Prozent!",
+    "output": "str",
+    "x": 836.523551940918,
+    "y": 69.45313262939453,
+    "wires": [
+      [
+        "f42482b4.cd9d9"
+      ]
+    ]
+  },
+  {
+    "id": "b085ae14.2bf1e",
+    "type": "template",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "field": "payload",
+    "fieldType": "msg",
+    "format": "handlebars",
+    "syntax": "mustache",
+    "template": "Achtung, Batterieladung blaues Auto unter 15 Prozent",
+    "output": "str",
+    "x": 836.5313034057617,
+    "y": 164.45313549041748,
+    "wires": [
+      [
+        "6d2bad4d.4f3f24"
+      ]
+    ]
+  },
+  {
+    "id": "f42482b4.cd9d9",
+    "type": "delay",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "pauseType": "rate",
+    "timeout": "5",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "15",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": true,
+    "x": 984.5392150878906,
+    "y": 51.39065361022949,
+    "wires": [
+      [
+        "f6b6b660.9f37a8"
+      ]
+    ]
+  },
+  {
+    "id": "6d2bad4d.4f3f24",
+    "type": "delay",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "pauseType": "rate",
+    "timeout": "5",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "15",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": true,
+    "x": 998.0235214233398,
+    "y": 171.03906154632568,
+    "wires": [
+      [
+        "f6b6b660.9f37a8"
+      ]
+    ]
+  },
+  {
+    "id": "484d7220.cda89c",
+    "type": "inject",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "1",
+    "crontab": "",
+    "once": false,
+    "x": 379.5390625,
+    "y": 856.46875,
+    "wires": [
+      [
+        "1eec069b.bd59b9",
+        "80163a6.4c717c8"
+      ]
+    ]
+  },
+  {
+    "id": "1eec069b.bd59b9",
+    "type": "mqtt out",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "topic": "hackathon2-ecxio/car/red/battery",
+    "qos": "",
+    "retain": "",
+    "broker": "ccfd1c26.413b",
+    "x": 699.5390625,
+    "y": 829.609375,
+    "wires": []
+  },
+  {
+    "id": "80163a6.4c717c8",
+    "type": "mqtt out",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "topic": "hackathon2-ecxio/car/blue/battery",
+    "qos": "",
+    "retain": "",
+    "broker": "ccfd1c26.413b",
+    "x": 693.5390625,
+    "y": 877.609375,
+    "wires": []
+  },
+  {
+    "id": "a58060a3.6b0eb",
+    "type": "switch",
+    "z": "624353b5.dcfa8c",
+    "name": "delocatedcount",
+    "property": "topic",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "hackathon2-ecxio/car/red/delocatedcount",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "hackathon2-ecxio/car/blue/delocatedcount",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "outputs": 2,
+    "x": 590,
+    "y": 1006,
+    "wires": [
+      [
+        "221a6e4e.4052b2",
+        "a6e89f5b.4ccc4"
+      ],
+      [
+        "221a6e4e.4052b2",
+        "4452b5e.8fd6d4c"
+      ]
+    ]
+  },
+  {
+    "id": "4452b5e.8fd6d4c",
+    "type": "ui_gauge",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "group": "efef1321.3b229",
+    "order": 3,
+    "width": 0,
+    "height": 0,
+    "gtype": "gage",
+    "title": "Crashs",
+    "label": "units",
+    "format": "{{value | number:0 }}",
+    "min": "0",
+    "max": "100",
+    "colors": [
+      "#02a415",
+      "#e6e600",
+      "#c41016"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "x": 819,
+    "y": 1091,
+    "wires": []
+  },
+  {
+    "id": "a6e89f5b.4ccc4",
+    "type": "ui_gauge",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "group": "27698791.29b258",
+    "order": 3,
+    "width": 0,
+    "height": 0,
+    "gtype": "gage",
+    "title": "Crashs",
+    "label": "units",
+    "format": "{{value | number:0 }}",
+    "min": "0",
+    "max": "100",
+    "colors": [
+      "#02a415",
+      "#e6e600",
+      "#c41016"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "x": 790,
+    "y": 944,
+    "wires": []
+  },
+  {
+    "id": "221a6e4e.4052b2",
+    "type": "debug",
+    "z": "624353b5.dcfa8c",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "false",
+    "x": 1227.5,
+    "y": 961,
+    "wires": []
+  },
+  {
+    "id": "ccfd1c26.413b",
+    "type": "mqtt-broker",
+    "z": "",
+    "broker": "test.mosquitto.org",
+    "port": "1883",
+    "clientid": "",
+    "usetls": false,
+    "compatmode": true,
+    "keepalive": "60",
+    "cleansession": true,
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": "",
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": ""
+  },
+  {
+    "id": "27698791.29b258",
+    "type": "ui_group",
+    "z": "",
+    "name": "RED",
+    "tab": "40b7d840.b35a48",
+    "disp": true,
+    "width": "6"
+  },
+  {
+    "id": "efef1321.3b229",
+    "type": "ui_group",
+    "z": "",
+    "name": "BLUE",
+    "tab": "40b7d840.b35a48",
+    "order": 2,
+    "disp": true,
+    "width": "6"
+  },
+  {
+    "id": "4a0e04e4.2c64dc",
+    "type": "ui_group",
+    "z": "",
+    "name": "Control RED",
+    "tab": "40b7d840.b35a48",
+    "order": 3,
+    "disp": true,
+    "width": "6"
+  },
+  {
+    "id": "2ba88596.a527fa",
+    "type": "ui_group",
+    "z": "",
+    "name": "Control BLUE",
+    "tab": "40b7d840.b35a48",
+    "order": 4,
+    "disp": true,
+    "width": "6"
+  },
+  {
+    "id": "40b7d840.b35a48",
+    "type": "ui_tab",
+    "z": 0,
+    "name": "Home",
+    "icon": "dashboard"
+  }
+]
