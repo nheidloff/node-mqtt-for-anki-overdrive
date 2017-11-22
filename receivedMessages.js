@@ -15,6 +15,8 @@
 //------------------------------------------------------------------------------
 
 module.exports = function() {
+    var subscriptionnamePrefix = "hackathon2-ecxio/car/";
+
   return {
     "handle" : function(data, mqttClient) {    
 
@@ -27,13 +29,7 @@ module.exports = function() {
 	      console.log('Message: ' + messageId, data, desc);
 	      
 	      if (mqttClient) {
-	      	mqttClient.publish('iot-2/evt/' + messageId + '/fmt/json', JSON.stringify({
-	          "d" : {
-	            "description" : desc,
-	            "date": date
-	          }
-	        }), function () {
-	        }); 
+	      	mqttClient.publish(subscriptionnamePrefix + deviceId + '/pong', 'Ina', function () {});
 		  }
 	    }
 
@@ -44,14 +40,7 @@ module.exports = function() {
 	      console.log('Message: ' + messageId, data, desc + ' - version: ' + version);
 
 	      if (mqttClient) {
-	      	mqttClient.publish('iot-2/evt/' + messageId + '/fmt/json', JSON.stringify({
-	          "d" : {
-	            "description" : desc,
-	            "date": date,
-	            "version": version
-	          }
-	        }), function () {
-	        }); 
+              mqttClient.publish(subscriptionnamePrefix + deviceId + '/versionresponse', '' + version, function () {});
 		  }
 	    }
 
@@ -60,16 +49,14 @@ module.exports = function() {
 	      var desc = 'Battery Level Received';
 	      var level = data.readUInt16LE(2);
 	      console.log('Message: ' + messageId, data, desc + ' - level: ' + level);
+	      var wattmax = 4150;
+	      var wattmin = 3350;
+	      var levelProzent = Math.round(((level - wattmin) / (wattmax - wattmin)) * 100);
+	      console.log('Message: ' + messageId, data, desc + ' - Percentage: ' + levelProzent);
 
 	      if (mqttClient) {
-	      	mqttClient.publish('iot-2/evt/' + messageId + '/fmt/json', JSON.stringify({
-	          "d" : {
-	            "description" : desc,
-	            "date": date,
-	            "level": level
-	          }
-	        }), function () {
-	        }); 
+              mqttClient.publish(subscriptionnamePrefix + deviceId + '/batterylevel', '' + level, function () {});
+              mqttClient.publish(subscriptionnamePrefix + deviceId + '/batterypercentage', '' + levelProzent, function () {});
 		  }
 	    }
 
@@ -91,17 +78,10 @@ module.exports = function() {
 	      console.log('Message: ' + messageId, data, desc + ' - offset: '  + offset + ' speed: ' + speed + ' - pieceId: '  + pieceId + ' pieceLocation: ' + pieceLocation);;
 	     
 	      if (mqttClient) {
-	      	mqttClient.publish('iot-2/evt/' + messageId + '/fmt/json', JSON.stringify({
-	          "d" : {
-	            "description" : desc,
-	            "date": date,
-	            "offset": offset,
-	            "speed": speed,
-	            "pieceId": pieceId,
-	            "pieceLocation": pieceLocation
-	          }
-	        }), function () {
-	        }); 
+              mqttClient.publish(subscriptionnamePrefix + deviceId + '/telemetrie/offset', '' + offset, function () {});
+              mqttClient.publish(subscriptionnamePrefix + deviceId + '/telemetrie/speed', '' + speed, function () {});
+              mqttClient.publish(subscriptionnamePrefix + deviceId + '/telemetrie/pieceid', '' + pieceId, function () {});
+              mqttClient.publish(subscriptionnamePrefix + deviceId + '/telemetrie/piecelocation', '' + pieceLocation, function () {});
 		  }
 	    }
 
@@ -112,14 +92,7 @@ module.exports = function() {
 		  console.log('Message: ' + messageId, data, desc + ' - offset: '  + offset);
 
 		  if (mqttClient) {
-	      	mqttClient.publish('iot-2/evt/' + messageId + '/fmt/json', JSON.stringify({
-	          "d" : {
-	            "description" : desc,
-	            "date": date,
-	            "offset": offset
-	          }
-	        }), function () {
-	        }); 
+              mqttClient.publish(subscriptionnamePrefix + deviceId + '/telemetrie/offset', '' + offset, function () {});
 		  }
 	    }
 
@@ -129,13 +102,8 @@ module.exports = function() {
 	      console.log('Message: ' + messageId, data, desc);
 
 	      if (mqttClient) {
-	      	mqttClient.publish('iot-2/evt/' + messageId + '/fmt/json', JSON.stringify({
-	          "d" : {
-	            "description" : desc,
-	            "date": date
-	          }
-	        }), function () {
-	        }); 
+              mqttClient.publish(subscriptionnamePrefix + deviceId + '/telemetrie/delocated', 'Tristan', function () {});
+
 		  }
 	    }
 
@@ -146,14 +114,7 @@ module.exports = function() {
 	      console.log('Message: ' + messageId, data, desc + ' - offset: '  + offset);
 
 	      if (mqttClient) {
-	      	mqttClient.publish('iot-2/evt/' + messageId + '/fmt/json', JSON.stringify({
-	          "d" : {
-	            "description" : desc,
-	            "date": date,
-	            "offset": offset
-	          }
-	        }), function () {
-	        }); 
+              mqttClient.publish(subscriptionnamePrefix + deviceId + '/telemetrie/center', '' + offset, function () {});
 		  }
 	    }
 
@@ -174,14 +135,7 @@ module.exports = function() {
 		  console.log('Message: ' + messageId, data, desc + ' - offset: '  + offset);
 
 		  if (mqttClient) {
-	      	mqttClient.publish('iot-2/evt/' + messageId + '/fmt/json', JSON.stringify({
-	          "d" : {
-	            "description" : desc,
-	            "date": date,
-	            "offset": offset
-	          }
-	        }), function () {
-	        }); 
+              mqttClient.publish(subscriptionnamePrefix + deviceId + '/telemetrie/changeoffset', '' + offset, function () {});
 		  }
 	    }
 

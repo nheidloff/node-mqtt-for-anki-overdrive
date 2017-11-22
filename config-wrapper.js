@@ -16,28 +16,26 @@
 
 var mqtt = require('mqtt');
 var properties = require('properties');
+var mqttHost = "test.mosquitto.org";
+var mqttPort = 1883;
+var deviceId;
+var subscriptionnamePrefix = "hackathon2-ecxio/car/";
 
-function start(deviceId, apiKey, apiToken, mqttHost, mqttPort, carid, startlane, callback) {
-  var org = apiKey.split('-')[1];
-  var clientId = ['d', org, 'ankisupercar', deviceId].join(':');
+function start(carid, startlane, callback) {
   var mqttClient = mqtt.connect("mqtt://" + mqttHost + ":" + mqttPort, {
-              "clientId" : clientId,
-              "keepalive" : 30,
-              "username" : "use-token-auth",
-              "password" : apiToken
-            });
+      "keepalive" : 30
+  });
 
   mqttClient.on('connect', function() {
-    mqttClient.subscribe('iot-2/cmd/car/fmt/json', {qos : 0}, function(err, granted) {
+    mqttClient.subscribe(subscriptionnamePrefix + deviceId + '/#', {qos : 0}, function(err, granted) {
       if (err) {
         mqttClient = null;
       } 
       else {
-        console.log('MQTT client connected to IBM IoT Cloud');
+        console.log('MQTT client connected to ' + mqttHost);
       }
     });
-
-    callback(carid, startlane, mqttClient);
+    callback(carid, startlane, mqttClient, deviceId);
   });
 }
 
@@ -57,13 +55,8 @@ module.exports = function() {
           console.error('Error parsing the configuration file - see config-sample.properties for an example');
           process.exit(0);
         }
-
-        if (cfg.deviceid) {
-          var org = cfg.apikey.split('-')[1];
-          start(cfg.deviceid, cfg.apikey, cfg.authtoken, org + '.messaging.internetofthings.ibmcloud.com', '1883', cfg.carid, cfg.startlane, callback);
-        } else {
-          callback(cfg.carid, cfg.startlane, null);
-        }
+        deviceId = cfg.deviceid;
+        start(cfg.carid, cfg.startlane, callback);
       });	
 	  }
   };
